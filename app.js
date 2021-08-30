@@ -6,7 +6,8 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-
+var catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
+const wiki = require("./routes/wiki");
 const app = express();
 
 const mongodb =
@@ -29,7 +30,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-
+app.use("/wiki", wiki);
+app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

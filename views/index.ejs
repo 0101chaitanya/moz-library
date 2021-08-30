@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+<%- include("./partials/head.ejs"); %>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+        <%- include("./partials/column.ejs"); %>
+      </div>
+      <div class="col-sm-10">
+        <%- include("./partials/content.ejs"); %>
+      </div>
+    </div>
+  </div>
+
+</body>
+
 </html>

@@ -9,6 +9,11 @@ var GenreSchema = new Schema({
     max: 100,
   },
 });
-GenreSchema.virtual("url").get(() => `/catalog/genre/${this.name}`);
+GenreSchema.set("toObject", { virtuals: true });
+GenreSchema.set("toJSON", { virtuals: true });
 
-module.exports = mongoose.model("genre", GenreSchema);
+GenreSchema.virtual("url").get(function () {
+  return `/catalog/genre/${this._id}`;
+});
+
+module.exports = mongoose.model("Genre", GenreSchema);

@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 var catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
+var expressLayouts = require("express-ejs-layouts");
 const wiki = require("./routes/wiki");
 const app = express();
 
@@ -19,6 +20,7 @@ const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "Mongoose connection error:"));
 // view engine setup
+app.use(expressLayouts);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 

@@ -13,18 +13,21 @@ const AuthorSchema = new Schema({
     required: true,
     maxLength: 100,
   },
-  data_of_birth: {
+  date_of_birth: {
     type: Date,
   },
-  data_of_death: {
+  date_of_death: {
     type: Date,
   },
 });
 
-AuthorSchema.virtual("name").get(
-  () => `${this.family_name}, ${this.first_name}`
-);
-AuthorSchema.virtual("lifespan").get(() => {
+AuthorSchema.set("toObject", { virtuals: true });
+AuthorSchema.set("toJSON", { virtuals: true });
+
+AuthorSchema.virtual("name").get(function () {
+  return this.family_name + ", " + this.first_name;
+});
+AuthorSchema.virtual("lifespan").get(function () {
   let lifetime_string = "";
   if (this.data_of_birth) {
     lifetime_string = DateTime.fromJSDate(this.date_of_birth).toLocaleString(
@@ -40,6 +43,20 @@ AuthorSchema.virtual("lifespan").get(() => {
   }
 });
 
-AuthorSchema.virtual("url").get(() => `/catalog/author/${this._id}`);
+AuthorSchema.virtual("date_of_birth_formatted").get(function () {
+  return DateTime.fromJSDate(this.date_of_birth).toLocaleString(
+    DateTime.DATE_MED
+  );
+});
+
+AuthorSchema.virtual("date_of_death_formatted").get(function () {
+  return DateTime.fromJSDate(this.date_of_death).toLocaleString(
+    DateTime.DATE_MED
+  );
+});
+
+AuthorSchema.virtual("url").get(function () {
+  return `/catalog/author/${this._id}`;
+});
 
 module.exports = mongoose.model("Author", AuthorSchema);

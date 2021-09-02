@@ -14,6 +14,8 @@ var _require = require("express-validator"),
     body = _require.body,
     validationResult = _require.validationResult;
 
+var ejsLint = require("ejs-lint");
+
 var mongoose = require("mongoose");
 
 exports.index = function (req, res) {
@@ -111,7 +113,9 @@ exports.book_create_get = function (req, res, next) {
     res.render("book_form", {
       title: "Create Book",
       authors: results.authors,
-      genres: results.genres
+      genres: results.genres,
+      book: undefined,
+      errors: undefined
     });
   });
 }; // Handle book create on POST.

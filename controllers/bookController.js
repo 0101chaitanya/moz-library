@@ -4,7 +4,7 @@ var Genre = require("../models/genre");
 var BookInstance = require("../models/bookinstance");
 var async = require("async");
 const { body, validationResult } = require("express-validator");
-
+const ejsLint = require("ejs-lint");
 var mongoose = require("mongoose");
 
 exports.index = function (req, res) {
@@ -106,6 +106,8 @@ exports.book_create_get = function (req, res, next) {
         title: "Create Book",
         authors: results.authors,
         genres: results.genres,
+        book: undefined,
+        errors: undefined,
       });
     }
   );
@@ -179,7 +181,7 @@ exports.book_create_post = [
             title: "Create Book",
             authors: results.authors,
             genres: results.genres,
-            book,
+            book: book,
             errors: errors.array(),
           });
         }

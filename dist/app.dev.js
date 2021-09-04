@@ -10,7 +10,13 @@ var cookieParser = require("cookie-parser");
 
 var logger = require("morgan");
 
+require("dotenv").config();
+
 var mongoose = require("mongoose");
+
+var compression = require("compression");
+
+var helmet = require("helmet");
 
 var indexRouter = require("./routes/index");
 
@@ -24,7 +30,9 @@ var expressLayouts = require("express-ejs-layouts");
 var wiki = require("./routes/wiki");
 
 var app = express();
-var mongodb = "mongodb+srv://0101chaitanya:Webdev%400101@cluster0.ojoav.mongodb.net/chaitudb?authSource=admin&replicaSet=atlas-yx635f-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true";
+app.use(helmet());
+var dev_db_url = "mongodb+srv://0101chaitanya:Webdev%400101@cluster0.ojoav.mongodb.net/chaitudb?authSource=admin&replicaSet=atlas-yx635f-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true";
+var mongodb = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongodb, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -32,6 +40,7 @@ mongoose.connect(mongodb, {
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "Mongoose connection error:")); // view engine setup
 
+app.use(compression());
 app.use(expressLayouts);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");

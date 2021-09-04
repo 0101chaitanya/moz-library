@@ -2,17 +2,15 @@
 
 <h1><%= title %></h1>
 <form method="POST" action="">
-    <div class="form-group">
-        <label for="name">Genre</label>
-        <input id="name" name="name" class="form-control" required="true" placeholder="Fantasy ,Poetry etc."
-            value="<% () => { if(  genre === undefined) { %> <% return ; %> <% } else{%> <%= genre.name  %> <% }} %>"
-            type="text" />
-        <button class="btn btn-primary" type="submit">Submit</button>
+  <div class="form-group">
+    <label for="name">Genre</label>
+    <input id="name" name="name" class="form-control" required="true" placeholder="Fantasy ,Poetry etc." value="<%= undefined===genre ? '' : genre.name%>" type="text" />
+    <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 <% if (errors) { %>
 <ul>
-    <% for( let error of errors ) { %>
-    <li><%= error.msg %> </li>
-    <% } %>
+  <% for( let error of errors ) { %>
+  <li><%= error.msg %> </li>
+  <% } %>
 </ul>
 <% } %>

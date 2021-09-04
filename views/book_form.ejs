@@ -20,7 +20,8 @@
       <% }) %>
       <% for(let author of authors ) { %>
       <% if(book!== undefined && book.author !== undefined) { %>
-      <option value="<%= author._id %>" selected="<%= author._id.toString() === book.author._id.toString()   ? true : false %>"><%= author.name %></option>
+      <option value="<%= author._id %>" selected="<%= (author._id.toString() === book.author._id.toString() ||   author._id.toString()==book.author
+       ) ? true : false %>"><%= author.name %></option>
       <% } else { %>
       <option value='<%= author._id %>'><%= author.name %></option>
       <% } %>
